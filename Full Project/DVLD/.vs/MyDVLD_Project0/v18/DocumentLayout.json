@@ -1,0 +1,175 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_Project0\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1C6CFA1C-A653-4E7B-91B5-F83FD839ADB3}|..\\MyDVLD_BusinessTier\\MyDVLD_BusinessTier.csproj|c:\\users\\tonyg\\onedrive\\desktop\\desktop projects\\course 19 (dvld) project\\full project\\mydvld_businesstier\\clstestmanagement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C6CFA1C-A653-4E7B-91B5-F83FD839ADB3}|..\\MyDVLD_BusinessTier\\MyDVLD_BusinessTier.csproj|c:\\users\\tonyg\\onedrive\\desktop\\desktop projects\\course 19 (dvld) project\\full project\\mydvld_businesstier\\clstestappointmentsmanagement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{368545BF-DE87-4FEB-8ED0-24F1FDD55192}|..\\MyDVLD_PeresentationTier\\MyDVLD_PeresentationTier.csproj|c:\\users\\tonyg\\onedrive\\desktop\\desktop projects\\course 19 (dvld) project\\full project\\mydvld_peresentationtier\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C6CFA1C-A653-4E7B-91B5-F83FD839ADB3}|..\\MyDVLD_BusinessTier\\MyDVLD_BusinessTier.csproj|c:\\users\\tonyg\\onedrive\\desktop\\desktop projects\\course 19 (dvld) project\\full project\\mydvld_businesstier\\clsdriversmanement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{368545BF-DE87-4FEB-8ED0-24F1FDD55192}|..\\MyDVLD_PeresentationTier\\MyDVLD_PeresentationTier.csproj|c:\\users\\tonyg\\onedrive\\desktop\\desktop projects\\course 19 (dvld) project\\full project\\mydvld_peresentationtier\\thing to add .txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{368545BF-DE87-4FEB-8ED0-24F1FDD55192}|..\\MyDVLD_PeresentationTier\\MyDVLD_PeresentationTier.csproj|C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\mydvld_peresentationtier\\people frms\\addoreditnewpersonfrm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C6CFA1C-A653-4E7B-91B5-F83FD839ADB3}|..\\MyDVLD_BusinessTier\\MyDVLD_BusinessTier.csproj|C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\mydvld_businesstier\\clslocallicesnseapplicationmanagement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C6CFA1C-A653-4E7B-91B5-F83FD839ADB3}|..\\MyDVLD_BusinessTier\\MyDVLD_BusinessTier.csproj|C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\mydvld_businesstier\\clspeoplemanagement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C6CFA1C-A653-4E7B-91B5-F83FD839ADB3}|..\\MyDVLD_BusinessTier\\MyDVLD_BusinessTier.csproj|C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\mydvld_businesstier\\clsusersmanagement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6606999-EF03-4BAD-9374-8257DCCFA747}|..\\MyDVLD_DataTier\\MyDVLD_DataTier.csproj|C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\mydvld_datatier\\clstesttypesdatatier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Thing To ADD .txt",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_PeresentationTier\\Thing To ADD .txt",
+              "RelativeDocumentMoniker": "..\\MyDVLD_PeresentationTier\\Thing To ADD .txt",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_PeresentationTier\\Thing To ADD .txt",
+              "RelativeToolTip": "..\\MyDVLD_PeresentationTier\\Thing To ADD .txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-12-26T02:19:51.675Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "clsTestManagement.cs",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsTestManagement.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_BusinessTier\\clsTestManagement.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsTestManagement.cs",
+              "RelativeToolTip": "..\\MyDVLD_BusinessTier\\clsTestManagement.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAgwEIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-10T23:53:13.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "clsTestAppointmentsManagement.cs",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsTestAppointmentsManagement.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_BusinessTier\\clsTestAppointmentsManagement.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsTestAppointmentsManagement.cs",
+              "RelativeToolTip": "..\\MyDVLD_BusinessTier\\clsTestAppointmentsManagement.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAIwH4AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-10T23:52:50.439Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "App.manifest",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_PeresentationTier\\App.manifest",
+              "RelativeDocumentMoniker": "..\\MyDVLD_PeresentationTier\\App.manifest",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_PeresentationTier\\App.manifest",
+              "RelativeToolTip": "..\\MyDVLD_PeresentationTier\\App.manifest",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001203|",
+              "WhenOpened": "2026-02-08T23:13:41.104Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "clsDriversManement.cs",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsDriversManement.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_BusinessTier\\clsDriversManement.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsDriversManement.cs",
+              "RelativeToolTip": "..\\MyDVLD_BusinessTier\\clsDriversManement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T18:29:30.613Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "clsPeopleManagement.cs",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsPeopleManagement.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_BusinessTier\\clsPeopleManagement.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsPeopleManagement.cs",
+              "RelativeToolTip": "..\\MyDVLD_BusinessTier\\clsPeopleManagement.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAAwFgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T18:25:44.532Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "clsLocalLicesnseApplicationManagement.cs",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsLocalLicesnseApplicationManagement.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_BusinessTier\\clsLocalLicesnseApplicationManagement.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsLocalLicesnseApplicationManagement.cs",
+              "RelativeToolTip": "..\\MyDVLD_BusinessTier\\clsLocalLicesnseApplicationManagement.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAC8AAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T18:25:13.405Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AddOrEditNewPersonFRM.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_PeresentationTier\\People FRMs\\AddOrEditNewPersonFRM.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_PeresentationTier\\People FRMs\\AddOrEditNewPersonFRM.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_PeresentationTier\\People FRMs\\AddOrEditNewPersonFRM.cs [Design]",
+              "RelativeToolTip": "..\\MyDVLD_PeresentationTier\\People FRMs\\AddOrEditNewPersonFRM.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003525|",
+              "WhenOpened": "2026-01-25T18:23:09.216Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "clsTestTypesDataTier.cs",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_DataTier\\clsTestTypesDataTier.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_DataTier\\clsTestTypesDataTier.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_DataTier\\clsTestTypesDataTier.cs",
+              "RelativeToolTip": "..\\MyDVLD_DataTier\\clsTestTypesDataTier.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAYwEEAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T18:21:25.322Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "clsUsersManagement.cs",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsUsersManagement.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_BusinessTier\\clsUsersManagement.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Desktop Projects\\Course 19 (DVLD) Project\\Full Project\\MyDVLD_BusinessTier\\clsUsersManagement.cs*",
+              "RelativeToolTip": "..\\MyDVLD_BusinessTier\\clsUsersManagement.cs*",
+              "ViewState": "AgIAAB8AAAAAAAAAAADwv0QAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T03:16:21.245Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

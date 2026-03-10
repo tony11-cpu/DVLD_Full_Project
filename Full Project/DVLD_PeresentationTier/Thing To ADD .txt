@@ -1,0 +1,12 @@
+﻿
+Things To Add After Finishing The Project 
+
+
+1) Users Permissions!
+     Add User Permissions To Windows Registery Driect In HKEY_CURRENT_USER And Deal With Them In The Database
+     --> "Permissions" are binary data strucure 
+             add new tabpage on the TabControl on the "Add New User FRM" and "Update User FRM"
+             --> which you can add permissions while updating or adding new user
+
+2) During Detaining Of The User Liances: 
+     Add Thing (Form , etc...) With Further Questions About The Where and Why The User Cought Plus Police Name And Police Number...

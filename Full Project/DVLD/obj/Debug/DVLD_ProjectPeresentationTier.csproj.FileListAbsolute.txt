@@ -1,0 +1,11 @@
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\bin\Debug\MyDVLD_Project0.exe.config
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\bin\Debug\MyDVLD_Project0.exe
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\bin\Debug\MyDVLD_Project0.pdb
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\obj\Debug\DVLD_ProjectPeresentationTier.csproj.AssemblyReference.cache
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\obj\Debug\MyDVLD_Project0.exe.config
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\obj\Debug\MyDVLD_Project0.AppMainFRM.resources
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\obj\Debug\MyDVLD_Project0.Properties.Resources.resources
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\obj\Debug\DVLD_ProjectPeresentationTier.csproj.GenerateResource.cache
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\obj\Debug\DVLD_ProjectPeresentationTier.csproj.CoreCompileInputs.cache
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\obj\Debug\MyDVLD_Project0.exe
+C:\Users\Tonyg\source\repos\MyDVLD_Project0\obj\Debug\MyDVLD_Project0.pdb
