@@ -13,8 +13,7 @@ namespace MyDVLD_DataTier
     {
         public static bool IsPersonAppointmentExistsInDB(int PersonID, int LicensesClassID)
         {
-            bool IsLocalDrivingLicenseAppExists = false;
-            string Query = @"Select * From IsPersonAppointmentExists(@PersonID , @LicensesClassID)";
+            bool IsExists = false;
 
             try
             {
@@ -22,14 +21,14 @@ namespace MyDVLD_DataTier
                 {
                     connection.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(Query, connection))
+                    using (SqlCommand cmd = new SqlCommand("Select IsExists From dbo.IsPersonAppointmentExists(@PersonID, @LicensesClassID)", connection))
                     {
                         cmd.Parameters.AddWithValue("@PersonID", PersonID);
                         cmd.Parameters.AddWithValue("@LicensesClassID", LicensesClassID);
 
-                        object Reuslt = cmd.ExecuteScalar();
+                        object result = cmd.ExecuteScalar();
 
-                        IsLocalDrivingLicenseAppExists = (Reuslt == null || Reuslt == DBNull.Value) ? false : Convert.ToBoolean(Reuslt);
+                        IsExists = result != null && result != DBNull.Value && Convert.ToBoolean(result);
                     }
                 }
             }
@@ -38,7 +37,7 @@ namespace MyDVLD_DataTier
                 clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
 
-            return IsLocalDrivingLicenseAppExists;
+            return IsExists;
         }
 
         public static int AddNewLocalDrivingLicenseApplication(int ApplicationID ,int LicenseClassID)

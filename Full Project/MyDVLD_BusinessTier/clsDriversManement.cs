@@ -93,9 +93,9 @@ namespace MyDVLD_BusinessTier
             return false;
         }
 
-        public static DataTable GetAllLocalLicensesInfoByDriverID(int DriverID) => clsDriversDataTier.GetAllLocalLicnesesInfoByDriverID(DriverID);
+        public static DataTable GetAllLocalLicensesInfoByDriverID(int DriverID) => clsDriversDataTier.GetAllLocalLicensesInfoByDriverID(DriverID); 
 
-        public static DataTable GetAllInternationalLicensesInfoByDriverID(int DriverID) => clsDriversDataTier.GetAllInternationalLicnesesInfoByDriverID(DriverID);
+        public static DataTable GetAllInternationalLicensesInfoByDriverID(int DriverID) => clsDriversDataTier.GetAllInternationalLicensesInfoByDriverID(DriverID);
     }
 }
 

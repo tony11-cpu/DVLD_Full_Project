@@ -9,64 +9,43 @@ namespace MyDVLD_DataTier
         public static int? AddNewTestToDB(int TestAppointmentID, bool TestResult, string Notes, int CreatedByUserID)
         {
             int? NewTestID = null;
-            string Query = @"INSERT INTO Tests (TestAppointmentID, TestResult, Notes, CreatedByUserID)
-                                            VALUES (@TestAppointmentID, @TestResult, @Notes, @CreatedByUserID);
-                                            
-                                            UPDATE TestAppointments 
-                                            SET IsLocked = 1 
-                                            WHERE TestAppointmentID = @TestAppointmentID;
-                                            
-                                            SELECT SCOPE_IDENTITY();";
 
-            using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
+            try
             {
-                try
+                using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
                 {
                     connection.Open();
 
-                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    using (SqlCommand cmd = new SqlCommand("SP_AddNewTest", connection))
                     {
-                        try
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@TestAppointmentID", TestAppointmentID);
+                        cmd.Parameters.AddWithValue("@TestResult", TestResult);
+                        cmd.Parameters.AddWithValue("@Notes", string.IsNullOrEmpty(Notes) ? (object)DBNull.Value : Notes);
+                        cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
+
+                        SqlParameter outParam = new SqlParameter("@NewTestID", SqlDbType.Int)
                         {
-                            using (SqlCommand cmd = new SqlCommand(Query, connection, transaction))
-                            {
-                                cmd.Parameters.AddWithValue("@TestAppointmentID", TestAppointmentID);
-                                cmd.Parameters.AddWithValue("@TestResult", TestResult);
-                                cmd.Parameters.AddWithValue("@Notes", string.IsNullOrEmpty(Notes) ? (object)DBNull.Value : Notes);
-                                cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outParam);
 
-                                object obj = cmd.ExecuteScalar();
+                        cmd.ExecuteNonQuery();
 
-                                if (obj != null && int.TryParse(obj.ToString(), out int NewTest))
-                                    NewTestID = NewTest;
-                                else
-                                {
-                                    transaction.Rollback();
-                                    return null;
-                                }
-
-                                transaction.Commit();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            if (transaction != null)
-                                transaction.Rollback();
-
-                            clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
-                            return null;
-                        }
+                        if (outParam.Value != DBNull.Value && (int)outParam.Value > 0)
+                            NewTestID = (int)outParam.Value;
                     }
                 }
-                catch (Exception ex)
-                {
-                    clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
-                    return null;
-                }
+            }
+            catch (Exception ex)
+            {
+                clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
 
             return NewTestID;
         }
+
         public static bool UpdateTestInDB(int? TestID, int TestAppointmentID, bool TestResult, string Notes, int CreatedByUserID)
         {
             if (TestID == null || TestID == -1)
@@ -74,34 +53,99 @@ namespace MyDVLD_DataTier
 
             bool IsUpdated = false;
 
-            SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString);
-
-            string Query = @"UPDATE Tests
-                             SET TestAppointmentID = @TestAppointmentID,
-                                 TestResult = @TestResult,
-                                 Notes = @Notes,
-                                 CreatedByUserID = @CreatedByUserID
-                             WHERE TestID = @TestID;";
-
-            SqlCommand cmd = new SqlCommand(Query, connection);
-            cmd.Parameters.AddWithValue("@TestID", TestID);
-            cmd.Parameters.AddWithValue("@TestAppointmentID", TestAppointmentID);
-            cmd.Parameters.AddWithValue("@TestResult", TestResult);
-            cmd.Parameters.AddWithValue("@Notes", string.IsNullOrEmpty(Notes) ? (object)DBNull.Value : Notes);
-            cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
-
             try
             {
-                connection.Open();
-                IsUpdated = (cmd.ExecuteNonQuery() > 0);
+                using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("SP_UpdateTest", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@TestID", TestID.Value);
+                        cmd.Parameters.AddWithValue("@TestAppointmentID", TestAppointmentID);
+                        cmd.Parameters.AddWithValue("@TestResult", TestResult);
+                        cmd.Parameters.AddWithValue("@Notes", string.IsNullOrEmpty(Notes) ? (object)DBNull.Value : Notes);
+                        cmd.Parameters.AddWithValue("@CreatedByUserID", CreatedByUserID);
+
+                        SqlParameter outParam = new SqlParameter("@IsUpdated", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outParam);
+
+                        cmd.ExecuteNonQuery();
+
+                        IsUpdated = outParam.Value != DBNull.Value && Convert.ToBoolean(outParam.Value);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
-            finally { connection.Close(); }
 
             return IsUpdated;
+        }
+
+        public static int NumberOfTestPassesWithAppID(int LocalApplicationID)
+        {
+            int NumberOfPasses = -1;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("SELECT NumberOfPasses FROM dbo.GetNumberOfTestPassesByLocalAppID(@LocalDLID)", connection))
+                    {
+                        cmd.Parameters.AddWithValue("@LocalDLID", LocalApplicationID);
+
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value)
+                            NumberOfPasses = Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
+            }
+
+            return NumberOfPasses;
+        }
+
+        public static int NumberOfTrialsForTestWithAppID(int AppID, int TestMode)
+        {
+            int NumberOfTrials = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("SELECT NumberOfTrials FROM dbo.GetNumberOfTrialsForTestByAppID(@AppID, @TestMode)", connection))
+                    {
+                        cmd.Parameters.AddWithValue("@AppID", AppID);
+                        cmd.Parameters.AddWithValue("@TestMode", TestMode);
+
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value)
+                            NumberOfTrials = Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
+            }
+
+            return NumberOfTrials;
         }
 
         public static bool FindTestInDB(int TestID, ref int TestAppointmentID, ref bool TestResult, ref string Notes, ref int CreatedByUserID)
@@ -166,38 +210,6 @@ namespace MyDVLD_DataTier
             finally { connection.Close(); }
 
             return IsPassed;
-        }
-
-        public static int NumberOfTestPassesWithAppID(int LocalApplicationID)
-        {
-            int NumberOfTestPasses = -1;
-            string Query = $@"SELECT COUNT(dbo.TestAppointments.TestTypeID)
-                              FROM dbo.Tests INNER JOIN
-                              dbo.TestAppointments ON dbo.Tests.TestAppointmentID = dbo.TestAppointments.TestAppointmentID
-							  Join LocalDrivingLicenseApplications On dbo.TestAppointments.LocalDrivingLicenseApplicationID = dbo.LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID
-                              WHERE (dbo.TestAppointments.LocalDrivingLicenseApplicationID = dbo.LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID) 
-                              AND (dbo.Tests.TestResult = 1) 
-                              AND (LocalDrivingLicenseApplications.LocalDrivingLicenseApplicationID = @LocalDLID);";
-
-            SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString);
-
-            SqlCommand cmd = new SqlCommand(Query, connection);
-            cmd.Parameters.AddWithValue("@LocalDLID", LocalApplicationID);
-
-            try
-            {
-                connection.Open();
-
-                if (int.TryParse(cmd.ExecuteScalar().ToString(), out int NoOfTests) && (cmd.ExecuteScalar() != null || cmd.ExecuteScalar() != DBNull.Value))
-                    NumberOfTestPasses = NoOfTests;
-            }
-            catch (Exception ex)
-            {
-                clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
-            }
-            finally { connection.Close(); }
-
-            return NumberOfTestPasses;
         }
 
         public static int NumberOfTrailsForTestWithAppID(int AppID , int TestMode)

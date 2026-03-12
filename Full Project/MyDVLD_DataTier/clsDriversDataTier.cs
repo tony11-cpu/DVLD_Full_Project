@@ -153,47 +153,6 @@ namespace MyDVLD_DataTier
         public static DataTable GetAllDrivers()
         {
             DataTable dt = new DataTable();
-            SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString);
-
-            string query = @"SELECT dbo.Drivers.DriverID, dbo.Drivers.PersonID, dbo.People.NationalNo, dbo.People.FirstName + ' ' + dbo.People.SecondName + ' ' + ISNULL(dbo.People.ThirdName, '') + ' ' + dbo.People.LastName AS FullName, dbo.Drivers.CreatedDate,
-                             (SELECT COUNT(LicenseID) AS NumberOfActiveLicenses
-                             FROM    dbo.Licenses
-                             WHERE (IsActive = 1) AND (DriverID = dbo.Drivers.DriverID)) AS NumberOfActiveLicenses
-                             FROM   dbo.Drivers INNER JOIN
-                             dbo.People ON dbo.Drivers.PersonID = dbo.People.PersonID";
-
-            SqlCommand cmd = new SqlCommand(query, connection);
-
-            try
-            {
-                connection.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.HasRows)
-                    dt.Load(reader);
-
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            return dt;
-        }
-
-        public static DataTable GetAllLocalLicnesesInfoByDriverID(int DriverID)
-        {
-            DataTable dt = new DataTable();
-            string query = @"SELECT Licenses.LicenseID, Applications.ApplicationID, LicenseClasses.ClassName, Licenses.IssueDate, Licenses.ExpirationDate, Licenses.IsActive
-                             FROM Licenses INNER JOIN
-                             Applications ON Licenses.ApplicationID = Applications.ApplicationID INNER JOIN
-                             LicenseClasses ON Licenses.LicenseClass = LicenseClasses.LicenseClassID
-			                 Where Licenses.DriverID = @DriverID";
 
             try
             {
@@ -201,12 +160,15 @@ namespace MyDVLD_DataTier
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlCommand cmd = new SqlCommand("SP_GetAllDrivers", connection))
                     {
-                        command.Parameters.AddWithValue("@DriverID", DriverID);
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        using (SqlDataReader reader = command.ExecuteReader())
-                            dt.Load(reader);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                                dt.Load(reader);
+                        }
                     }
                 }
             }
@@ -218,12 +180,9 @@ namespace MyDVLD_DataTier
             return dt;
         }
 
-        public static DataTable GetAllInternationalLicnesesInfoByDriverID(int DriverID)
+        public static DataTable GetAllLocalLicensesInfoByDriverID(int DriverID)
         {
             DataTable dt = new DataTable();
-            string query = @"SELECT * FROM InternationalLicenses 
-                             Where InternationalLicenses.DriverID = @DriverID
-                             ORDER BY InternationalLicenseID DESC";
 
             try
             {
@@ -231,12 +190,45 @@ namespace MyDVLD_DataTier
                 {
                     connection.Open();
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.GetLocalLicensesByDriverID(@DriverID)", connection))
                     {
-                        command.Parameters.AddWithValue("@DriverID", DriverID);
+                        cmd.Parameters.AddWithValue("@DriverID", DriverID);
 
-                        using (SqlDataReader reader = command.ExecuteReader())
-                            dt.Load(reader);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                                dt.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
+            }
+
+            return dt;
+        }
+
+        public static DataTable GetAllInternationalLicensesInfoByDriverID(int DriverID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.GetInternationalLicensesByDriverID(@DriverID) ORDER BY InternationalLicenseID DESC", connection))
+                    {
+                        cmd.Parameters.AddWithValue("@DriverID", DriverID);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                                dt.Load(reader);
+                        }
                     }
                 }
             }

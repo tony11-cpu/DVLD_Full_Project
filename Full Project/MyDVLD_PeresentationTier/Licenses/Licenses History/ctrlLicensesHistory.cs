@@ -66,6 +66,9 @@ namespace MyDVLD_PeresentationTier.Licenses.Licenses_CTRL
             dgvInternationalLicenses.DataSource = clsDriversManagement.GetAllInternationalLicensesInfoByDriverID(_DriverInfo.DriverID ?? -1);
             lblNumberOfInternationalLicenses.Text = dgvInternationalLicenses.RowCount.ToString();
 
+            if (dgvInternationalLicenses.RowCount < 1)
+                return;
+
             dgvInternationalLicenses.Columns[0].HeaderText = "Licnese ID";
             dgvInternationalLicenses.Columns[0].Width = 90;
 

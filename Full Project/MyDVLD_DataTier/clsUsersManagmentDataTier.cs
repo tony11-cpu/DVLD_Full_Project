@@ -16,20 +16,16 @@ namespace MyDVLD_DataTier
         {
             DataTable data = new DataTable();
 
-            string Query = @"SELECT Users.UserID, Users.PersonID, 
-                             (People.FirstName + ' ' + People.SecondName + ' ' + People.LastName) as FullName,
-                             Users.UserName, Users.IsActive 
-                             FROM Users INNER JOIN People
-                             ON Users.PersonID = People.PersonID;";
-
             try
             {
                 using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
                 {
                     connection.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(Query, connection))
+                    using (SqlCommand cmd = new SqlCommand("SP_GetAllUsers", connection))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.HasRows)
@@ -55,24 +51,24 @@ namespace MyDVLD_DataTier
 
             if (FillterValue == "active" || FillterValue == "not active")
                 Query = $@"SELECT Users.UserID, Users.PersonID, 
-                             (People.FirstName + ' ' + People.SecondName + ' ' + People.LastName) as FullName ,
-                             Users.UserName, Users.IsActive 
-                             FROM Users INNER JOIN People
-                             ON Users.PersonID = People.PersonID
-                             Where Users.{FilterColumn} Like @FillterValue;";
+                     (People.FirstName + ' ' + People.SecondName + ' ' + People.LastName) as FullName ,
+                     Users.UserName, Users.IsActive 
+                     FROM Users INNER JOIN People
+                     ON Users.PersonID = People.PersonID
+                     Where Users.{FilterColumn} Like @FillterValue;";
             else
                 Query = $@"WITH UsersFilterTable 
-                           AS (SELECT 
-                               Users.UserID,
-                               Users.PersonID,
-                               (People.FirstName + ' ' + People.SecondName + ' ' + People.LastName) AS FullName,
-                               Users.UserName,
-                               Users.IsActive
-                           FROM Users 
-                           INNER JOIN People ON Users.PersonID = People.PersonID)
-                           SELECT * 
-                           FROM UsersFilterTable
-                           WHERE UsersFilterTable.{FilterColumn} LIKE @FillterValue + '%';";
+                   AS (SELECT 
+                       Users.UserID,
+                       Users.PersonID,
+                       (People.FirstName + ' ' + People.SecondName + ' ' + People.LastName) AS FullName,
+                       Users.UserName,
+                       Users.IsActive
+                   FROM Users 
+                   INNER JOIN People ON Users.PersonID = People.PersonID)
+                   SELECT * 
+                   FROM UsersFilterTable
+                   WHERE UsersFilterTable.{FilterColumn} LIKE @FillterValue + '%';";
 
             SqlCommand cmd = new SqlCommand(Query, connection);
 
@@ -104,19 +100,27 @@ namespace MyDVLD_DataTier
         {
             bool IsDeleted = false;
 
-            string Request = "Delete From Users Where UserID = @UserID;";
-
             try
             {
                 using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
                 {
                     connection.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(Request, connection))
+                    using (SqlCommand cmd = new SqlCommand("SP_DeleteUser", connection))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
                         cmd.Parameters.AddWithValue("@UserID", UserID);
 
-                        IsDeleted = (cmd.ExecuteNonQuery() > 0);
+                        SqlParameter outParam = new SqlParameter("@IsDeleted", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outParam);
+
+                        cmd.ExecuteNonQuery();
+
+                        IsDeleted = outParam.Value != DBNull.Value && Convert.ToBoolean(outParam.Value);
                     }
                 }
             }
@@ -124,47 +128,13 @@ namespace MyDVLD_DataTier
             {
                 clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
+
             return IsDeleted;
         }
 
-        public static int AddNewUserToDB(int PersonID , string Username , string Password , bool IsUserActive)
+        public static int AddNewUserToDB(int PersonID, string Username, string Password, bool IsUserActive)
         {
-            int UserAddedId = -1;
-
-            SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString);
-
-            // Adding UserPassword Encrepted..
-            string Query = @"Insert Into Users(PersonID , UserName , Password , IsActive)
-                              Values(@PersonId , @Username , @Password , @IsActive);
-                              Select SCOPE_IDENTITY();";  
-
-            SqlCommand cmd = new SqlCommand(Query, connection);
-            cmd.Parameters.AddWithValue("@PersonId" , PersonID);
-            cmd.Parameters.AddWithValue("@Username", Username);
-            cmd.Parameters.AddWithValue("@Password", Password);
-            cmd.Parameters.AddWithValue("@IsActive", IsUserActive);
-
-
-            try
-            {
-                connection.Open();
-                int.TryParse(cmd.ExecuteScalar().ToString(), out UserAddedId);
-            }
-            catch (Exception ex)
-            {
-                clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
-            }
-            finally { connection.Close(); }
-
-            return UserAddedId;
-        }
-
-        public static bool GetUserInfoFromDB(int UserId, ref int PersonId, ref string Username, ref string Password, ref bool IsActive)
-        {
-            bool UserDataFound = false;
-
-            string Query = @"Select Users.PersonID, Users.Password ,Users.UserName, Users.IsActive From Users
-                             Where UserID = @UserId";
+            int NewUserID = -1;
 
             try
             {
@@ -172,20 +142,59 @@ namespace MyDVLD_DataTier
                 {
                     connection.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(@Query, connection))
+                    using (SqlCommand cmd = new SqlCommand("SP_AddNewUser", connection))
                     {
-                        cmd.Parameters.AddWithValue("@UserId", UserId);
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@PersonID", PersonID);
+                        cmd.Parameters.AddWithValue("@Username", Username);
+                        cmd.Parameters.AddWithValue("@Password", Password);
+                        cmd.Parameters.AddWithValue("@IsActive", IsUserActive);
+
+                        SqlParameter outParam = new SqlParameter("@NewUserID", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outParam);
+
+                        cmd.ExecuteNonQuery();
+
+                        if (outParam.Value != DBNull.Value && (int)outParam.Value > 0)
+                            NewUserID = (int)outParam.Value;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
+            }
+
+            return NewUserID;
+        }
+
+        public static bool GetUserInfoFromDB(int UserId, ref int PersonId, ref string Username, ref string Password, ref bool IsActive)
+        {
+            bool UserDataFound = false;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("Select * From dbo.GetUserInfoByID(@UserID)", connection))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", UserId);
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
                             {
-                                UserDataFound = true;
-
                                 PersonId = Convert.ToInt32(reader["PersonID"]);
                                 Username = reader["UserName"].ToString();
                                 Password = reader["Password"].ToString();
                                 IsActive = Convert.ToBoolean(reader["IsActive"]);
+                                UserDataFound = true;
                             }
                         }
                     }
@@ -193,7 +202,7 @@ namespace MyDVLD_DataTier
             }
             catch (Exception ex)
             {
-                UserDataFound = false; 
+                UserDataFound = false;
                 clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
 
@@ -201,12 +210,9 @@ namespace MyDVLD_DataTier
         }
 
         public static bool GetUserInfoFromDB(string Username, string Password, ref int PersonId,
-                                            ref int UserId, ref bool IsActive)
+                                             ref int UserId, ref bool IsActive)
         {
             bool UserDataFound = false;
-
-            string Query = @"Select Users.PersonID, Users.UserID, Users.IsActive From Users
-                             Where UserName = @Username and Password = @Password;";
 
             try
             {
@@ -214,7 +220,7 @@ namespace MyDVLD_DataTier
                 {
                     connection.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(@Query, connection))
+                    using (SqlCommand cmd = new SqlCommand("Select * From dbo.GetUserInfoByUsernameAndPassword(@Username, @Password)", connection))
                     {
                         cmd.Parameters.AddWithValue("@Username", Username);
                         cmd.Parameters.AddWithValue("@Password", Password);
@@ -223,19 +229,19 @@ namespace MyDVLD_DataTier
                         {
                             if (reader.Read())
                             {
-                                UserDataFound = true;
-
                                 PersonId = Convert.ToInt32(reader["PersonID"]);
                                 UserId = Convert.ToInt32(reader["UserID"]);
                                 IsActive = Convert.ToBoolean(reader["IsActive"]);
+                                UserDataFound = true;
                             }
                         }
                     }
                 }
             }
-            catch 
-            { 
-                UserDataFound = false; 
+            catch (Exception ex)
+            {
+                UserDataFound = false;
+                clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
 
             return UserDataFound;
@@ -243,85 +249,113 @@ namespace MyDVLD_DataTier
 
         public static bool IsUserExistsInDB(int PersonID)
         {
-            bool UserDataFound = false;
-            SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString);
-
-            string Query = "Select Found=1 From Users Where PersonID = @PersonID";
-
-            SqlCommand cmd = new SqlCommand (Query, connection);
-            cmd.Parameters.AddWithValue("@PersonID", PersonID);
+            bool IsExists = false;
 
             try
             {
-                connection.Open();
-                UserDataFound = (cmd.ExecuteReader().HasRows);
+                using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("SP_IsUserExistsByPersonID", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@PersonID", PersonID);
+
+                        SqlParameter outParam = new SqlParameter("@IsExists", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outParam);
+
+                        cmd.ExecuteNonQuery();
+
+                        IsExists = outParam.Value != DBNull.Value && Convert.ToBoolean(outParam.Value);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
-            finally { connection.Close(); }
 
-            return UserDataFound;
+            return IsExists;
         }
 
         public static bool IsUserExistsInDB(string Username)
         {
-            bool UserDataFound = false;
-            SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString);
-
-            string Query = "Select Found=1 From Users Where UserName = @Username";
-
-            SqlCommand cmd = new SqlCommand(Query, connection);
-            cmd.Parameters.AddWithValue("@Username", Username);
+            bool IsExists = false;
 
             try
             {
-                connection.Open();
-                object result = cmd.ExecuteScalar();
+                using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
+                {
+                    connection.Open();
 
-                if (result != null && result != DBNull.Value)
-                    UserDataFound = Convert.ToBoolean(result);
+                    using (SqlCommand cmd = new SqlCommand("SP_IsUserExistsByUsername", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@Username", Username);
+
+                        SqlParameter outParam = new SqlParameter("@IsExists", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outParam);
+
+                        cmd.ExecuteNonQuery();
+
+                        IsExists = outParam.Value != DBNull.Value && Convert.ToBoolean(outParam.Value);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
-            finally { connection.Close(); }
 
-            return UserDataFound;
+            return IsExists;
         }
 
-        public static bool UpdateUserInDB(int UserID , string Username , string Password , bool IsActive)
+        public static bool UpdateUserInDB(int UserID, string Username, string Password, bool IsActive)
         {
-            bool IsUserUpdated = false;
-            SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString);
-
-            string Query = @"Update Users
-                             Set Username = @Username,
-                                 Password = @Password,
-                                 IsActive = @IsActive
-                                 Where UserID = @UserID;";
-
-            SqlCommand cmd = new SqlCommand(Query, connection);
-            cmd.Parameters.AddWithValue("@UserID", UserID);
-            cmd.Parameters.AddWithValue("@Username", Username);
-            cmd.Parameters.AddWithValue("@Password", Password);
-            cmd.Parameters.AddWithValue("@IsActive", IsActive);
-
+            bool IsUpdated = false;
 
             try
             {
-                connection.Open();
-                IsUserUpdated = (cmd.ExecuteNonQuery() > 0);
+                using (SqlConnection connection = new SqlConnection(clsDB_Util.ConnectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("SP_UpdateUser", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@UserID", UserID);
+                        cmd.Parameters.AddWithValue("@Username", Username);
+                        cmd.Parameters.AddWithValue("@Password", Password);
+                        cmd.Parameters.AddWithValue("@IsActive", IsActive);
+
+                        SqlParameter outParam = new SqlParameter("@IsUpdated", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outParam);
+
+                        cmd.ExecuteNonQuery();
+
+                        IsUpdated = outParam.Value != DBNull.Value && Convert.ToBoolean(outParam.Value);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 clsDB_Util.clsEventLog.LogEvent(ex.Message, System.Diagnostics.EventLogEntryType.Error);
             }
-            finally { connection.Close(); }
 
-            return IsUserUpdated;
+            return IsUpdated;
         }
     }
 }
