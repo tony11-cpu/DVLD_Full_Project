@@ -645,6 +645,7 @@
     <None Include="Resources\Detained Driving License 32.png" />
     <None Include="Resources\Retake Test 32.png" />
     <None Include="Resources\Driver License 481.png" />
+    <None Include="Resources\WinForms MDI Background Teal Details.png" />
     <Content Include="Thing To ADD .txt" />
   </ItemGroup>
   <ItemGroup />

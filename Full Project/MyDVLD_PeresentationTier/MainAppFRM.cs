@@ -27,9 +27,7 @@ namespace MyDVLD_PeresentationTier
 
         private void MainAppFRM_Load(object sender, EventArgs e)
         {
-            this.Controls.OfType<MdiClient>().FirstOrDefault().BackgroundImage =
-                Image.FromFile(@"C:\Users\Tonyg\OneDrive\Desktop\Desktop Projects_LocalRebo\DVLD Project\Project Icons\App Icons\Icons\Icons\WinForms MDI Background Teal Details.png");
-
+            this.Controls.OfType<MdiClient>().FirstOrDefault().BackgroundImage = Properties.Resources.WinForms_MDI_Background_Teal_Details;
             this.Controls.OfType<MdiClient>().FirstOrDefault().BackgroundImageLayout = ImageLayout.Stretch;
         }
 

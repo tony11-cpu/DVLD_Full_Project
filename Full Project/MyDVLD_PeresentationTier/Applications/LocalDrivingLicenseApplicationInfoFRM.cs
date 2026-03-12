@@ -15,8 +15,7 @@ namespace MyDVLD_PeresentationTier.Applications.Manage_Applications
             _LocalAppID = LocalAppID;
         }
 
-        private void LocalDrivingLicenseApplicationInfoFRM_Load(object sender, EventArgs e) 
-                                                                         => ctrlShowLocalApplicationDetails1.LoadLocalAppDetails(_LocalAppID);
+        private void LocalDrivingLicenseApplicationInfoFRM_Load(object sender, EventArgs e) => ctrlShowLocalApplicationDetails1.LoadLocalAppDetails(_LocalAppID);
 
         private void btnCloseFRM_Click(object sender, EventArgs e) => this.Close();
     }

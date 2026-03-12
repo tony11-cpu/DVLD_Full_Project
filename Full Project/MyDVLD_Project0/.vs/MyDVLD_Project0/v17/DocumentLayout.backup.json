@@ -3,7 +3,13 @@
   "WorkspaceRootPath": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Tests\\DVLD_Full_Project\\Full Project\\MyDVLD_Project0\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1C6CFA1C-A653-4E7B-91B5-F83FD839ADB3}|..\\MyDVLD_BusinessTier\\MyDVLD_BusinessTier.csproj|c:\\users\\tonyg\\onedrive\\desktop\\tests\\dvld_full_project\\full project\\mydvld_businesstier\\clstestappointmentsmanagement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{368545BF-DE87-4FEB-8ED0-24F1FDD55192}|..\\MyDVLD_PeresentationTier\\MyDVLD_PeresentationTier.csproj|c:\\users\\tonyg\\onedrive\\desktop\\tests\\dvld_full_project\\full project\\mydvld_peresentationtier\\mainappfrm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|MyDVLD_PeresentationTier||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{368545BF-DE87-4FEB-8ED0-24F1FDD55192}|..\\MyDVLD_PeresentationTier\\MyDVLD_PeresentationTier.csproj|c:\\users\\tonyg\\onedrive\\desktop\\tests\\dvld_full_project\\full project\\mydvld_peresentationtier\\mainappfrm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -13,7 +19,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -21,16 +27,38 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MyDVLD_PeresentationTier",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Tests\\DVLD_Full_Project\\Full Project\\MyDVLD_PeresentationTier\\MyDVLD_PeresentationTier.csproj",
+              "RelativeDocumentMoniker": "..\\MyDVLD_PeresentationTier\\MyDVLD_PeresentationTier.csproj",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Tests\\DVLD_Full_Project\\Full Project\\MyDVLD_PeresentationTier\\MyDVLD_PeresentationTier.csproj",
+              "RelativeToolTip": "..\\MyDVLD_PeresentationTier\\MyDVLD_PeresentationTier.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-12T00:22:12.041Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "clsTestAppointmentsManagement.cs",
-              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Tests\\DVLD_Full_Project\\Full Project\\MyDVLD_BusinessTier\\clsTestAppointmentsManagement.cs",
-              "RelativeDocumentMoniker": "..\\MyDVLD_BusinessTier\\clsTestAppointmentsManagement.cs",
-              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Tests\\DVLD_Full_Project\\Full Project\\MyDVLD_BusinessTier\\clsTestAppointmentsManagement.cs",
-              "RelativeToolTip": "..\\MyDVLD_BusinessTier\\clsTestAppointmentsManagement.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAEwGMAAAAAAAAAAAAAAA==",
+              "Title": "MainAppFRM.cs",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Tests\\DVLD_Full_Project\\Full Project\\MyDVLD_PeresentationTier\\MainAppFRM.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_PeresentationTier\\MainAppFRM.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Tests\\DVLD_Full_Project\\Full Project\\MyDVLD_PeresentationTier\\MainAppFRM.cs",
+              "RelativeToolTip": "..\\MyDVLD_PeresentationTier\\MainAppFRM.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-11T23:51:59.932Z",
+              "WhenOpened": "2026-03-12T00:20:30.399Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainAppFRM.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Tests\\DVLD_Full_Project\\Full Project\\MyDVLD_PeresentationTier\\MainAppFRM.cs",
+              "RelativeDocumentMoniker": "..\\MyDVLD_PeresentationTier\\MainAppFRM.cs",
+              "ToolTip": "C:\\Users\\Tonyg\\OneDrive\\Desktop\\Tests\\DVLD_Full_Project\\Full Project\\MyDVLD_PeresentationTier\\MainAppFRM.cs [Design]",
+              "RelativeToolTip": "..\\MyDVLD_PeresentationTier\\MainAppFRM.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T00:20:29.133Z"
             }
           ]
         }
