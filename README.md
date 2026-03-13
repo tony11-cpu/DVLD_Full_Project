@@ -10,6 +10,7 @@
    - Password: `123123123`
 
 
+
 ## Technical Highlights
 First License Issuance — The Heart of the System
 The most intricate part of DVLD is not the tests themselves, but the entire first license issuance workflow. 
